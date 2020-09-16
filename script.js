@@ -1,97 +1,72 @@
 // Assignment Code
+
+// User input
 var generateBtn = document.querySelector("#generate");
-var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","w","x","y","z"];
-var numbers = ["0","1","2","3","4","5","6","7","8","9"];
-var specialCharacters = ["!","@","#","%","^","&","*","()","_","+","~","`","|","}","{","[","]",":",";","?",">","<",",",".","/","-","=","'",";"];
+var passwordText = document.querySelector("#password");
+var lowercase = confirm("Do you want your password to have lowercase letters?");
+var uppercase = confirm("Do you want your password to have uppercase letters?");
+var numeric = confirm("Do you want your password to include numbers?");
+var specialch = confirm("Do you want your password to include special characters?");
+var length = prompt("How many characters between 8-128 would you like your password to be?");
 
-
-// User input for password criteria
-var userPasswordCapital = confirm("Would you like to include capital letters in your password?");
-var userPasswordNumber = confirm("Would you like to include numbers in your password?");
-var userPasswordSpecialCharacter = confirm("Would you like to include special characters in your password?");
-var userPasswordLength = prompt("How many characters would you like to include in your password?");
-
-//  Setting a variable to contain the password as a string
-var thePassword = "";
-
-// Defining the generatePassword function so that when I click the button the password is input and able to be viewed on the DOM
-function generatePassword(){
-
-  //  creating an object to contain the parameters for the password
-    function passwordParameters() {
-      // Does the user want to include capital letters in their password?
-      function letterCase() {
-
-        if (userPasswordCapital === true) {
-          return Math.floor(Math.random() * alphaCapital.length);
-            // pull from the capital array; use math.random to a random number, and then when you call the function, you'll do the array name.index number
-          }
-
-          else if (userPasswordCapital === false) {
-            return Math.floor(Math.random() * alphaLowerCase.length);
-            //  pull from the alphaLowerCase array
-
-          }
-      };
-      // Does the user want to include numbers in their password?
-      function numberCheck() {
-        if (userPasswordNumber === true) {
-          return Math.floor(Math.random() * number.length);
-        }
-      };
-      // Does the user want to include special chracters in their password?
-      function specialCharactersCheck() {
-        return math.floor(Math.random() * specialCharacters.length);
-      }
-    };
-    
-//  How many characters does the user want their password to be?
-  function passwordLength()  {
-  
-  if (userPasswordLength <8) {
-    alert ("Your password must be at least 8 characters long");
-    prompt("How many characters would you like to include in your password?");
-    return(this.userPasswordLength);
-  }
-
-  else if (userPasswordLength > 128) {
-    alert("Your password cannot exceed 128 characters");
-    prompt("How many characters would you like to include in your password?");
-    return(this.userPasswordLength);
-  }
-  else if (userPasswordLength > 8 || userPasswordLength < 128 || userPasswordLength == 128) {
-    return (this.userPasswordLength);
-    }
-  }
-};
-
-function writePassword() {
-  var password = generatePassword(passwordLength);
-  var passwordText = document.querySelector("#password");
-  thePassword.
-
-
-  passwordText.value = password;
-
-
+// Alert to select the right length
+if (length < 8 || length > 128) {
+  alert("Please select a number between 8 and 128.")
 }
-// A for loop is added so that it loops through the functions in my object to generate indice from the chracters output variable based on the user output letters
-for (var i=0; i < userPasswordLength; i++) {
-  console.log(passwordParameters.letterCase(alphaCapital));
-  console.log(passwordParameters.numberCheck(number));
-  console.log(passwordParameters.specialCharactersCheck(specialCharacters));
-  console.log(passwordParameters.passwordLength());
 
+var pass = "";
+
+// Arrays
+var lc = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
+"q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var uc = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
+"Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+var num = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+var sp = ["!", "@", "#", "$", "%", "^", "&", "*", "_", "-"]
+var selectCh = [0, 1, 2, 3]
+
+// Write password to the #password input, and add event listener
+generateBtn.addEventListener("click", function() {
+  
+  // Selections from arrays
+for (i=0; i < length; i++) {
+  // Selecting randomly which array to choose from
+  var selector3 = selectCh[Math.floor(Math.random() * 4)];
+  console.log(selector3);
+
+  // Select from lowercase array
+  var selector2 = Math.floor(Math.random() * 26);
+  if (selector3 === selectCh[1] && (lowercase)) {
+    var selectlc = lc[selector2];
+    console.log(selectlc);
+    pass = pass + selectlc;
+  }
+  // Select from uppercase array
+  var selector2 = Math.floor(Math.random() * 26);
+  if (selector3 === selectCh[2] && (uppercase)) {
+    var selectuc = uc[selector2];
+    console.log(selectuc);
+    pass = pass + selectuc;
+  }
+  // Select from number array
+  var selector1 = Math.floor(Math.random() * 10);
+  if (selector3 === selectCh[3] && (numeric)) {
+    var selectnum = num[selector1];
+    console.log(selectnum);
+    pass = pass + selectnum;
+  }
+  // Select from special character array
+  var selector1 = Math.floor(Math.random() * 10);
+  if (selector3 === selectCh[0] && (specialch)) {
+    var selectsp = sp[selector1];
+    console.log(selectsp);
+    pass = pass + selectsp;
+  }
 
 }
 
+console.log(pass);
 
-  
-
-
-
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
-
+passwordText.innerHTML = pass;
+});
 
